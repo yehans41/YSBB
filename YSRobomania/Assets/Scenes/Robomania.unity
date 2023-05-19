@@ -1852,6 +1852,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yForce: 500
+  xForce: 140
+  xDirection: -1
 --- !u!114 &1163686251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2342,6 +2344,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yForce: 300
+  xForce: 130
+  xDirection: 1
 --- !u!61 &1604866798
 BoxCollider2D:
   m_ObjectHideFlags: 0
