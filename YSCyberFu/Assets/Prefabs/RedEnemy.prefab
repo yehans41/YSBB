@@ -1353,7 +1353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  attackingDistance: 0.6
+  attackingDistance: 0.7
   direction: {x: 0, y: 0, z: 0}
   isFollowingTarget: 0
   isAttackingTarget: 0

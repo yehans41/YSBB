@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyControls : MonoBehaviour
 {
-    public float speed = 2;
-    public float attackingDistance = 1;
+    public float speed = 5f;
+    public float attackingDistance = 1f;
     public Vector3 direction;
     private Animator anim;
     private Rigidbody rb;
@@ -28,14 +28,16 @@ public class EnemyControls : MonoBehaviour
     {
         if (!isFollowingTarget)
         {
+            rb.isKinematic = true;
             return;
         }
 
         if (Vector3.Distance(transform.position, target.position) >= attackingDistance)
         {
-            direction = target.position - transform.position;
+            rb.isKinematic = false;
+            direction = target.position - this.transform.position;
             direction.y = 0;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 100);
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 100f);
             if(rb.velocity.sqrMagnitude != 0)
             {
                 rb.velocity = transform.forward * speed;
@@ -44,6 +46,7 @@ public class EnemyControls : MonoBehaviour
         }
         else if (Vector3.Distance(transform.position, target.position) <= attackingDistance)
         {
+            rb.isKinematic = false;
             rb.velocity = Vector3.zero;
             anim.SetBool("Walk", false);
             isFollowingTarget = false;
@@ -60,31 +63,36 @@ public class EnemyControls : MonoBehaviour
 
         if(currentAttackingTime > maxAttackingTime)
         {
-            EnemyAttack(Random.Range(1, 4));
+            EnemyAttack(Random.Range(0, 3));
             currentAttackingTime = 0f;
         }
+        if(Vector3.Distance(transform.position, target.position) > attackingDistance + chasingPlayer)
+        {
+            isAttackingTarget = false;
+            isAttackingTarget = true;
+        }
     }
-    private void EnemyAttack(int attack)
+    public void EnemyAttack(int attack)
     {
-        if (attack == 1)
+        if(attack == 0)
         {
             anim.SetTrigger("Attack1");
         }
-        if (attack == 2)
+        if (attack == 1)
         {
             anim.SetTrigger("Attack2");
         }
-        if (attack == 3)
+        if (attack == 2)
         {
             anim.SetTrigger("Attack3");
         }
     }
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         FollowTarget();
     }
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         Attack();
     }
