@@ -63,13 +63,13 @@ public class EnemyControls : MonoBehaviour
 
         if(currentAttackingTime > maxAttackingTime)
         {
-            EnemyAttack(Random.Range(0, 3));
+            EnemyAttack(Random.Range(0, 6));
             currentAttackingTime = 0f;
         }
         if(Vector3.Distance(transform.position, target.position) > attackingDistance + chasingPlayer)
         {
             isAttackingTarget = false;
-            isAttackingTarget = true;
+            isFollowingTarget = true;
         }
     }
     public void EnemyAttack(int attack)
@@ -85,6 +85,18 @@ public class EnemyControls : MonoBehaviour
         if (attack == 2)
         {
             anim.SetTrigger("Attack3");
+        }
+        if (attack == 3)
+        {
+            anim.SetTrigger("Attack4");
+        }
+        if (attack == 4)
+        {
+            anim.SetTrigger("Attack5");
+        }
+        if (attack == 5)
+        {
+            anim.SetTrigger("Attack6");
         }
     }
     void FixedUpdate()
